@@ -1,0 +1,849 @@
+\documentclass{article}
+
+\usepackage[letterpaper, margin=1in]{geometry}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
+\usepackage[textsize=tiny]{todonotes}
+\usepackage{hyperref}
+\usepackage[backend=biber]{biblatex}
+\usepackage{authblk}
+
+\title{Resources for Interpreting Variants in Precision Genomic
+Oncology Applications}
+
+\addbibresource{references.bib}
+
+
+\author[2,3]{Hsinyi Tsang}
+\author[2,3]{Durga Addepalli}
+\author[1]{Sean R. Davis\thanks{Address correspondence to: seandavi@gmail.com}}
+\affil[1]{Center for Cancer Research, 
+  National Cancer Institute, 
+  National Institutes of Health, 
+  Bethesda, MD, USA}
+\affil[2]{Center for Biomedical Informatics and Information Technology, 
+  National Cancer Institute, 
+  National Institutes of Health, 
+  Gaithersburg, MD, USA}
+\affil[3]{Attain, LLC, 
+  McClean, VA, USA} 
+
+\renewcommand\Authands{ and }
+
+\begin{document}
+
+\maketitle
+
+
+\begin{abstract} Precision genomic oncology--applying high throughput
+sequencing (HTS) at the point-of-care to inform clinical decisions--is
+a developing precision medicine paradigm that is seeing increasing
+adoption. Simultaneously, new developments in targeted agents and
+immunotherapy, when informed by rich genomic characterization, offer
+potential benefit to a growing subset of patients. Multiple previous
+studies have commented on methods for identifying both germline and
+somatic variants. However, interpreting individual variants remains a
+significant challenge, relying in large part on the integration of
+observed variants with biological knowledge.  A number of data and
+software resources have been developed to assist in interpreting
+observed variants, determining their potential clinical actionability,
+and augmenting them with ancillary information that can inform
+clinical decisions and even generate new hypotheses for exploration in
+the laboratory. Here, we review available variant catalogs, variant
+and functional annotation software and tools, and databases of
+clinically actionable variants that can be used in an ad hoc approach
+with research samples or incorporated into a data platform for
+interpreting and formally reporting clinical results.
+\end{abstract}
+
+
+\section{Introduction}
+Genomic technologies and approaches have transformed
+cancer research and have led to the production of large-scale cancer
+genomics compendia
+\cite{noauthor_undated-vx,Cancer_Genome_Atlas_Research_Network2013-gt}. The
+resulting molecular characterization and categorization of individual
+samples from such compendia has driven development of molecular
+subtypes cancers as well as enhanced understanding of the molecular
+etiologies of carcinogenesis
+\cite{Cancer_Genome_Atlas_Network2012-nz,Cancer_Genome_Atlas_Research_Network2015-gd,noauthor_2008-wg}. The
+development of novel and effective targeted therapies has proceeded in
+parallel with and been accelerated by deeper, faster, and broader
+genomic characterization \cite{Blumenthal2016-fb}, enabling early
+application of molecular characterization at the point of care to
+inform clinical decision-making
+\cite{Flaherty2012-dq,Shaw2013-wl,Maemondo2010-dj,Druker2006-qk} and
+to address resistance to primary therapy \cite{Ai2014-nf}. Genomic
+characterization also has applications in immune approaches to
+cancer. Chimeric antigen receptor T-cell (CARt) therapy have shown
+great success in diseases with well-characterized antigens that are
+relatively tumor-specific \cite{Grupp2013-nd}. Previously referred to
+as precision oncology \cite{Sohal2015-bi}, genomics-driven oncology
+\cite{Garraway2013-zo}, genomic oncology, and even simply as precision
+medicine, the paradigm of applying high-throughput genomic approaches
+to patient samples is rapidly changing the landscape of oncology care
+and clinical oncology research.
+
+Conventional approaches to clinical trials design may be inadequate
+due to molecular heterogeneity of tumors derived from a single primary
+tissue \cite{Simon2016-ik}, leading to the adoption of basket,
+umbrella, and hybrid trials designs. A number of studies are ongoing
+to determine feasibility and potential impact of precision genomic
+oncology at the point-of-care
+\cite{Cheng2015-wh,noauthor_undated-da,Lopez-Chavez2015-cg}. In
+addition to studies focused on identifying targetable mutations,
+immune-based therapeutic approaches are also being informed by HTS
+applied to patient samples
+\cite{Bethune2017-ns,Chalmers2017-ya,Faltas2016-yz}.
+
+As with any clinical testing modality, whether in a research setting
+or at the point-of-care, a clear understanding of the goals of
+applying the test is necessary when first designing the test and its
+validation. However, the flexibility and number of potential data
+items that arise from even a limited application of HTS has lead the
+US Food and Drug Administration (FDA) has begun to define its
+regulatory role \cite{Fda2015-kv} and, critically, how existing
+knowledge bases can be applied in real time to address findings from
+clinical HTS testing \cite{Fda2016-kx}.
+
+This review aims to provide
+an organized set of biological knowledge bases with relevance to the
+interpretation of small variants, defined as single nucleotide
+variants or short (on the order of 20 base pairs or fewer) insertions
+and deletions. The catalogs of observed variants section lists
+large-scale catalogs of variants, useful for filtering known common
+polymorphisms and identifying previously-identified cancer
+variants. When a variant observed in a clinical sample has not been
+seen but appears to affect the protein coding sequence, the functional
+annotation resources section presents a sampling of some of the most
+common software and databases for predicting the impact on protein
+function. Several data products have been developed to provide
+decision support (with strong disclaimers and caveats) directly
+linking observed variants to clinical intervention in point-of-care
+HTS applications. Integrating the various data sources described in
+this review with variants observed in individual patients can be
+accomplished with combinations of software tools for the manipulation
+of variant datasets.
+
+\subsection{Catalogs of observed germline and somatic variants}
+
+Databases of observed variation in normal populations,
+diseased individuals, and cancer compendia form the map onto which
+observed variants in patients are projected. Because of the vast
+quantities of genomic data and, specifically, DNA variants, there is a
+tension between providing rich, highly-curated information about
+individual variants and producing the largest possible catalog of
+variants with manageable levels of curation. This section reviews some
+of the available catalogs (Table \ref{table:1}) of genomic variation observed
+in the germline as well as those that appear in tumors as somatic
+mutations.  Note that many of the databases mentioned below overlap in
+data sources (some nearly completely), but they may differ in the
+amount and depth of curation, additional metadata added to each
+variant, speed of updates, and methods or formats for access.
+
+\begin{table}[p]
+\centering
+\begin{tabularx}{\textwidth}{XXXp{1.7cm}}
+  \hline
+Resource & Variant Type & URL & Citation \\
+  \hline
+  dbSNP & Germline and somatic & \url{https://www.ncbi.nlm.nih.gov/projects/SNP/} & \cite{Sherry2001-li} \\
+  gnomAD  & Germline & \url{http://gnomad.broadinstitute.org/} & \cite{Lek2016-bb} \\
+  69 genomes from CGI & Germline & \url{http://www.completegenomics.com/public-data/69-genomes/} & \cite{Drmanac2010-od} \\
+  Personalized Genome Project & Germline & \url{http://www.personalgenomes.org/} & \cite{Church2005-lr} \\
+  ClinVar & Germline predisposition and somatic & \url{https://www.ncbi.nlm.nih.gov/clinvar/intro/} & \cite{Landrum2016-ul} \\
+  NCI Genomic Data Commons & Germline and somatic & \url{https://portal.gdc.cancer.gov/} & \cite{Grossman2016-sk} \\
+  cBioPortal & Somatic & \url{http://www.cbioportal.org} & \cite{Cerami2012-el,Gao2013-li} \\
+  Intogen (Partial TCGA dataset) & Somatic & \url{https://www.intogen.org/search} & \cite{Rubio-Perez2015-ek,Gonzalez-Perez2013-cl} \\
+  Pediatric Cancer Genome Project  & Somatic & \url{http://explorepcgp.org} & \cite{Downing2012-do} \\
+   \hline
+\end{tabularx}
+\caption{catalogs of germline and somatic variants}
+\label{table:1}
+\end{table}
+
+\subsection{Germline}
+
+Comprehensive catalogs of germline variants inform decisions
+about the frequency of variants as seen in the general population as
+well as to identify variants that are annotated as
+cancer-associated. In the context of tumor sequencing, common variants
+are unlikely to be genomic drivers of carcinogenesis and are often
+filtered from a report of potential somatic variants. This filtering
+process is particularly important when tumor sequencing is not
+accompanied by matched normal sequencing. Additional germline
+databases that catalog disease-associated variants can be useful to
+begin to address familial risk and potentially pharmacogenomic loci
+\cite{Wheeler2013-dn,Relling2015-ie}.
+
+Perhaps the oldest of the variant catalogs, dbSNP contains 325,658,303
+individual variant records (build 150, accessed May 30, 2017) and is
+available in multiple formats, searchable, and linked to records in
+literature and other data resources and databases. While the vast
+majority of variants in dbSNP have been observed in individuals
+without cancer, somatic variants are included and annotated in the
+database. Because dbSNP is driven by community submission of variants,
+levels of evidence vary among individual variants. The genome
+Aggregation Database, or gnomAD, \cite{Lek2016-bb,noauthor_undated-of}
+contains information from 123,136 exomes and 15,496 whole-genomes from
+unrelated individuals sequenced as part of various disease-specific
+and population genetic studies (accessed May 30, 2017). These data
+were collected by numerous collaborations, underwent standard
+processing, and unified quality control and results area accessible as
+a searchable online database and as a downloadable VCF-format text
+file. ClinVar \cite{Landrum2016-ul}, maintained by the NIH National
+Center for Biotechnology Information (NCBI), is a freely available
+archive for interpretations of clinical significance of variants for
+reported conditions. Entries in ClinVar are taken directly from
+submitters and represent the relationship between variants and
+clinical significance. When multiple submissions concerning a single
+variant are available, ClinVar supplies high-level summaries of
+agreement or disagreement across submitters. Importantly, though,
+clinical significance in ClinVar is reported as supplied by the
+submitter. The Personalized Genome Project \cite{Church2005-lr}
+provides a limited number of fully open-access genome sequencing
+results provided by volunteers with trait surveys and even some
+microbiome surveys of participants. A catalog of germline variants
+derived from 69 genomes sequenced using the Complete Genomics
+sequencing platform \cite{Drmanac2010-od} may be useful for groups who
+have data generated from the same platform, particularly for
+identifying sequencing-platform-specific false positive results.
+
+\subsection{Somatic}
+
+Whereas databases of germline variants are useful to filter
+out variants unlikely to be directly involved in carcinogenesis,
+databases of somatic variants are useful to identify variants and
+their frequencies as observed in tumors. In some cases, identified
+variants may be associated with specific tumor types, offering
+mechanistic clues, particularly in the rare cancer setting where
+biological understanding may be limited.
+
+Several catalogs of somatic variants have, at their core, variants
+derived from The Cancer Genome Atlas (TCGA). These databases vary in
+the pipelines used to define the variants, the level of annotation
+associated with individual variants, the proportion of TCGA included,
+and methods for accessing or querying. Recently, National Cancer
+Institute (NCI) has established the Genomic Data Commons (GDC) to
+harmonize clinical information and genomic results across enterprise
+cancer datasets \cite{Grossman2016-sk}, particularly those funded by
+NCI, such as TCGA. In addition to the adult tumors profiled as part of
+the TCGA, the NCI GDC also contains data from several pediatric tumors
+profiled as part of the Therapeutically Applicable Research To
+Generate Effective Treatments (TARGET) project
+\cite{noauthor_undated-ax}. Cancer cell line data from the Cancer Cell
+Line Encyclopedia (CCLE) are also included \cite{Barretina2012-yz} in
+the GDC data collection. The GDC is a modern data platform that
+provides multiple access methods including a programmatic application
+programming interface (API), data file download, and web browser based
+text and graphical queries and visualization. The International Cancer
+Genome Consortium (ICGC) is a large, international collaboration with
+a collection of 76 studies (including TCGA studies) encompassing 21
+tissue primary sites. Like the NCI GDC, the ICGC data portal provides
+modern data platform approaches to data access, visualization, and
+query \cite{Zhang2011-bl}. The Catalog of Somatic Mutations in Cancer
+(COSMIC) database is perhaps the largest and best-known cancer variant
+database. It presents a unified dataset consisting of curated cancer
+variants for specific genes as well as genomic screens from projects
+such as TCGA. Several other cancer variant data resources are listed
+in Table 1.
+
+\section{Functional Annotation Resources}
+
+When faced with variants with little or no literature or database
+support, differentiating those that are deleterious, perhaps
+contributing to carcinogenesis, versus those that likely are tolerated
+by the cell is a critical task, particularly in the setting of
+clinical precision genomic oncology.  A number of algorithms and
+methods have been developed to predict the effect of these variants on
+protein structure and function as well as the potential for clinical
+impact. These prediction methods utilize features of the variant and
+its context such as sequence identity, sequence conservation,
+evolutionary relationship, protein primary and secondary structure,
+entropy based protein stability and approaches such as clustering
+based on sequence alignments and machine learning. Some of them are
+specific to the type of variant or mutation, some to a disease type,
+and some more general. Therefore, applying these functional
+annotational tools and interpreting the results in a clinical or
+research setting may require significant human curation before being
+recognized as clinically actionable. Here we present a review of a
+representative set of approaches for predicting pathogenicity of
+different variants. For a comprehensive list of prediction tools and
+their details see Table \ref{table:2}. For more detailed scientific and technical
+explanations of these methods, we refer the reader to a comprehensive
+review \cite{Addepalli2014-oa}.
+
+\begin{table}[p]
+\centering
+\begin{tabularx}{\textwidth}{p{3cm}Xp{1.7cm}X}
+  \hline
+Resource & URL & Citation & Notes \\
+  \hline
+ &  &  &  \\
+  PolyPhen-2 & \url{http://genetics.bwh.harvard.edu/pph2} & \cite{Adzhubei2013-nj} & Bayesian classification \\
+  SIFT & \url{http://sift.jcvi.org} & \cite{Ng2003-vp} & Alignment scores \\
+  MutationAssessor & \url{http://mutationassessor.org} & \cite{Reva2011-en} & evolutionary conservation,  naive Bayes classifier \\
+  MutationTaster & \url{http://www.mutationtaster.org} & \cite{Schwarz2014-ep} &   \\
+  PROVEAN & \url{http://provean.jcvi.org/index.php} & \cite{Choi2012-tk} &   \\
+  CADD & \url{http://cadd.gs.washington.edu} & \cite{Kircher2014-im} &   \\
+  GERP++ & \url{http://mendel.stanford.edu/SidowLab/downloads/gerp/index.html} & \cite{Davydov2010-ui} &   \\
+  PhyloP and PhastCons & \url{http://compgen.cshl.edu/phast/index.php} & \cite{Siepel2005-ke,Pollard2010-of} &   \\
+  nsSNPAnalyzer & \url{http://snpanalyzer.uthsc.edu/} & \cite{Bao2005-jn} & Random Forest \\
+  SNPs\&GO & \url{http://snps-and-go.biocomp.unibo.it/snps-and-go/} & \cite{Calabrese2009-mi} & SVM \\
+  SNAP2 & \url{https://rostlab.org/services/snap2web/} & \cite{Hecht2015-ti} & Neural Networks \\
+  SNPs3D & \url{http://www.snps3d.org/} & \cite{Yue2006-kj} & Structure and sequence analysis \\
+  MutPred2 & \url{http://mutpred.mutdb.org/} & \cite{Pejaver2017-lr} & Random Forest \\
+  AUTO-MUTE & \url{http://binf2.gmu.edu/automute/} & \cite{Masso2010-gf} & Topology  and statistical contact potential, and machine-learning techniques \\ 
+  Panther & \url{http://www.pantherdb.org/tools/csnpScoreForm.jsp} & \cite{Thomas2003-rj} & Hidden Markov Model \\
+  stSNP & \url{http://ilyinlab.org/StSNP/} & \cite{Uzun2007-bk} & comparative modelling of protein structure \\
+  Integrated Predictive Methods &  &  &   \\
+  Condel & \url{http://bg.upf.edu/fannsdb/} & \cite{Gonzalez-Perez2011-gc} & a weighted average of the normalized scores from multiple methods \\
+  CoVEC & \url{https://sourceforge.net/projects/covec/files} &   &   \\
+  CAROL & \url{http://www.sanger.ac.uk/science/tools/carol} & \cite{Lopes2012-je} & combines information from PolyPhen-2 and SIFT \\
+  Cancer Specific Prediction tools &  &  &   \\
+  CHASM & \url{http://wiki.chasmsoftware.org/index.php/Main_Page} & \cite{Carter2009-ci} & Random Forest, cancer mutations from COSMIC and other cancer-related resources \\
+  CanDrA & \url{http://bioinformatics.mdanderson.org/main/CanDrA\#CanDrA} & \cite{Mao2013-ie} & 96  structural, evolutionary and gene features  \\
+   \hline
+\end{tabularx}
+\caption{Tools, software, and databases for functional prediction and annotation of variant impact. }
+\label{table:2}
+\end{table}
+
+\subsection{PolyPhen-2}
+
+PolyPhen-2, Polymorphism
+Phenotyping v2, predicts impact of genomic variants (coding
+nonsynonymous SNPs) on protein structure and function and annotates
+them \cite{Adzhubei2013-nj}. It is a based on the actual version of
+the tool called PolyPhen and is available as batch query web service,
+as well as a standalone software. The new features in this version
+include high quality multiple sequence alignment pipeline,
+probabilistic classifier based on machine-learning method and
+optimization for high-throughput analysis of the NGS data. It uses
+eight sequence-based and three structure-based predictive features,
+which were selected automatically by an iterative greedy
+algorithm. The sequence based features include Position-Specific
+Independent Counts (PSIC) scores and Multiple Sequence Alignment (MSA)
+properties, and position of mutation in relation to domain boundaries
+as defined by Pfam \cite{Bateman2004-da}. The structure-derived
+features are solvent accessibility, changes in solvent accessibility
+for buried residues, and crystallographic B-factor. Majority of these
+features involve comparison of a property of the wild-type (ancestral,
+normal) allele and the corresponding property of the mutant (derived,
+disease-causing) allele, which together define an amino acid
+replacement. However, when there are not enough structural parameters,
+its classification is based predominantly on comparative
+analysis. Thus, structural attributes are complementary to
+evolutionary ones, rather than overlapping. PolyPhen-2 predicts the
+effect of mutation using a naive Bayesian classifier.
+
+\subsection{SIFT}
+
+SIFT, Sorting Intolerant From Tolerant, predicts functional impacts of
+amino acid substitutions (Ng and Henikoff 2003). It is one of the
+earliest prediction tools developed and uses sequence homology to
+classify amino acid substitutions as tolerated or deleterious and the
+prediction is based on conservation built purely on orthologous
+protein alignments. SIFT is used as a benchmark for other methods
+because of its efficient predictive power, simplicity and ease of
+installation and use. SIFT takes into consideration the type of amino
+acid change involved and the position at which the change/mutation
+occurs. SIFT generates a multiple alignment between the query and
+related proteins and uses Dirichlet mixtures extracted from these
+protein multiple sequence alignments (PMSAs) to create position
+specific scoring matrices (PSSM) and score missense
+substitutions. Depending on the amino acids appearing at each position
+in the alignment, SIFT calculates the probability for each of the 19
+amino acid changes to be tolerated relative to the most frequent amino
+acid being tolerated. If this normalized value is less than a cutoff,
+the substitution is predicted to be deleterious. However, such a
+prediction could be unreliable if there are few homologs
+available. Better predictions are obtained if the users can provide
+their own curated alignments. SIFT scores of 0.05 are usually taken as
+indicative of deleterious substitutions. However, the authors point
+out that in some situations higher or lower cutoffs might give a more
+accurate result for binary deleterious/neutral classifications.
+
+
+\subsection{Mutation Assessor}
+
+Mutation Assessor is a cancer-specific fully automated and implemented
+computational server/protocol using a functional impact score (FIS)
+based on evolutionary information useful for ranking mutations by
+likely functional impact. The use of evolutionary information in this
+conservation-based approach differentiates it from other
+sequence-based predictors.  The method generates a conservation score
+by distinguishing between conservation patterns within aligned
+families and specificity scores for subfamilies of homologs, therefore
+attempts to account for functional shifts between subfamilies of
+proteins. The novelty of this approach lies in harnessing the
+evolutionary conservation in protein subfamilies, which are determined
+by clustering multiple sequence alignments of homologous sequences
+with the background of conservation of overall function. Given a
+mutated protein name and a mutated residue position, Mutation Assessor
+searches for sequence homologs, builds a multiple sequence alignment,
+clusters sequences into subfamilies and scores a mutation by global
+and subfamily specific conservation patterns. Mutations found in
+conserved residues of either groups are likely to be functional. Based
+on the assumptions that evolutionarily unfavorable residues are not
+observed or observed less frequently than neutral or critically
+important residues, while critically important residues are conserved
+in diverse evolutionary settings and that the distribution of residues
+in any (aligned) sequence position of a protein family can be treated
+independently of other positions, the protocol uses the entropy of the
+residue distribution in an alignment column as a measure of residue
+conservation and estimates the mutation impact (conservation score)
+using the difference of the entropy caused by the mutation. To refine
+the assessment of conservation patterns, patterns of a subtler type
+are considered, in which the evolutionary constraint on a residue type
+in a particular position is not constant in the entire family, but
+only appears to operate in a protein subfamily. A combinatorial
+entropy approach is used to quantify subfamily conservation patterns
+which simultaneously determines protein subfamilies, by clustering,
+and residues, called specificity residues, which characteristically
+differ between these subfamilies. Specificity residues are conserved
+within a subfamily but differ between subfamilies presumably encoding
+functional diversity. Interestingly, specificity residues were found
+to be predominantly located in binding interfaces on the protein
+surface implicating them in protein interaction.
+
+\subsection{CHASM}
+
+CHASM, Cancer-specific High-throughput Annotation of Somatic Mutations
+(Carter H et al., 2009) is a computational method that identifies and
+prioritizes the missense mutations to generate functional changes that
+enhance tumor cell proliferation. It is an open-source software, a
+collection of Python and C++ programs that takes a list of somatic
+missense mutations as input and ranks them according to their likely
+tumorigenic impact. The idea behind creating CHASM was to train a
+classifier with improved specificity by representing passenger
+missense mutations by in silico simulations using mutation profiles
+that reflected tumor type as well as mutation context instead of
+nsSNPs with high minor allele frequencies. A dataset of driver
+mutations comprising of 2,488 missense mutations and identified as
+playing a functional role in oncogenic transformation from breast,
+colorectal, and pancreatic tumor re-sequencing studies and the COSMIC
+database was used. Synthetic passenger mutations were generated in
+these genes in silico, using an algorithm that summarized the type of
+base substitutions found in brain tumors. The method used only genes
+that were mutated as the substrate for the in silico generation of
+synthetic mutations such that there were more chances the new
+classifier would detect extraordinary mutations over extraordinary
+genes. The features and data sets were used to design a new classifier
+using two machine learning methods, SVMs, and Random Forests. In a
+different work CHASM was compared with PolyPhens PSIC score, SIFT,
+CanPredict, KinaseSVM in the fraction of mutations that could be
+evaluated, specificity, sensitivity, and precision and proven to be
+superior.
+
+\subsection{PROVEAN}
+
+PROVEAN, Protein Variation Effect Analyzer, is a
+web server predicting the functional impact of single or multiple
+amino acid substitution or insertions and deletions
+\cite{Choi2012-tk}. The approach involves clustering of BLAST hits
+performed by CD-HIT using 75% global sequence identity. A supporting
+sequence set comprising of the top 30 clusters of closely related
+sequences is generated and used to generate the prediction. An
+alignment score for each supporting sequence is computed and then
+averaged within and across clusters to get the final score. If the
+score is equal or below a predefined threshold, the protein variant is
+predicted to have a "deleterious" effect. If the PROVEAN score is
+above the threshold, the variant is predicted to have a "neutral"
+effect. The web server currently supports three functions: PROVEAN
+Protein, PROVEAN Protein Batch and PROVEAN Genome Variants.
+
+\subsection{CONDEL}
+
+CONDEL, CONsensus DELeteriousness score, is an integrated prediction
+method for missense mutations, is a weighted average of the normalized
+scores from multiple methods. It integrates the output of two
+computational tools, Mutation Assessor and FATHMM, assessing the
+impact of non synonymous SNVs on protein function. It computes a
+weighted average of the scores (WAS) of these tools. The scores from
+different methods are weighted using the complementary cumulative
+distributions produced by the five methods on a dataset of
+approximately 20000 missense SNPs, both deleterious and neutral. The
+probability that a predicted deleterious mutation is not a false
+positive of the method and the probability that a predicted neutral
+mutation is not a false negative are employed as weights. Condel
+scores can be derived for a limited set of specified mutations via the
+corresponding web application. The Ensembl database provides
+position-specific Condel predictions that combine SIFT and Polyphen-2
+for every possible amino acid substitution in all human proteins.
+
+\section{Clinical Actionability}
+
+
+\begin{table}[p]
+\centering
+\begin{tabularx}{\textwidth}{p{3cm}XXp{1.5cm}p{1.5cm}}
+  \hline
+  Cancer Driver Log & \url{https://candl.osu.edu/} & \cite{Damodaran2015-so} & Yes & \\
+  Cancer Genome Interpreter & \url{https://www.cancergenomeinterpreter.org/home} & \cite{Tamborero2017-ay} & Yes & API \\
+  CIViC & \url{https://civic.genome.wustl.edu/home} & \cite{Griffith2016-sy} & Yes & API \\
+  DGIdb & \url{http://dgidb.genome.wustl.edu/} & \cite{Wagner2016-fs,Griffith2013-uv} & Yes & \\
+  Clinical Knowledge Base & \url{https://www.jax.org/clinical-genomics/clinical-offerings/ckb\#} & & & \\
+  My Cancer Genome & \url{http://www.mycancergenome.org} & \cite{Micheel2014-pz} & Yes & API, app \\
+% OncoKb
+% http://oncokb.org/
+% \cite{Chakravarty2017-gx}
+ 
+% API
+% Personalized 
+% Cancer Therapy
+% https://pct.mdanderson.org
+% Not Available
+ 
+ 
+% PharmGKB
+% https://www.pharmgkb.org/
+% \cite{Hewett2002-yu}
+% Yes
+ 
+% Precision Medicine Knowledge Base
+% (Beta)
+% https://pmkb.weill.cornell.edu/
+% \cite{Huang2016-zx}
+% Yes
+ 
+% TumorPortal
+% http://www.tumorportal.org/
+% \cite{Lawrence2014-ss}
+ 
+% Cancer Driver Log
+% https://candl.osu.edu/
+% \cite{Damodaran2015-so}
+% Yes
+ 
+% Cancer Genome
+% Interpreter
+% https://www.cancergenomeinterpreter.org/home
+% \cite{Tamborero2017-ay}
+% Yes
+% API
+% CIViC
+% https://civic.genome.wustl.edu/home
+% \cite{Griffith2016-sy}
+% Yes
+ 
+% API
+% DGIdb
+% http://dgidb.genome.wustl.edu/
+% \cite{Wagner2016-fs,Griffith2013-uv}
+% Yes
+ 
+% Clinical Knowledge Base
+% https://www.jax.org/clinical-genomics/clinical-offerings/ckb#
+ 
+ 
+ 
+% My Cancer Genome
+% http://www.mycancergenome.org
+% \cite{Micheel2014-pz}
+% Yes
+% API, app
+% OncoKb
+% http://oncokb.org/
+% \cite{Chakravarty2017-gx}
+ 
+% API
+% Personalized 
+% Cancer Therapy
+% https://pct.mdanderson.org
+% Not Available
+ 
+ 
+% PharmGKB
+% https://www.pharmgkb.org/
+% \cite{Hewett2002-yu}
+% Yes
+ 
+% Precision Medicine Knowledge Base
+% (Beta)
+% https://pmkb.weill.cornell.edu/
+% \cite{Huang2016-zx}
+% Yes
+ 
+% TumorPortal
+% http://www.tumorportal.org/
+% \cite{Lawrence2014-ss}
+ 
+  
+% Cancer Driver Log
+% https://candl.osu.edu/
+% \cite{Damodaran2015-so}
+% Yes
+ 
+% Cancer Genome
+% Interpreter
+% https://www.cancergenomeinterpreter.org/home
+% \cite{Tamborero2017-ay}
+% Yes
+% API
+% CIViC
+% https://civic.genome.wustl.edu/home
+% \cite{Griffith2016-sy}
+% Yes
+ 
+% API
+% DGIdb
+% http://dgidb.genome.wustl.edu/
+% \cite{Wagner2016-fs,Griffith2013-uv}
+% Yes
+ 
+% Clinical Knowledge Base
+% https://www.jax.org/clinical-genomics/clinical-offerings/ckb#
+ 
+ 
+ 
+% My Cancer Genome
+% http://www.mycancergenome.org
+% \cite{Micheel2014-pz}
+% Yes
+% API, app
+% OncoKb
+% http://oncokb.org/
+% \cite{Chakravarty2017-gx}
+ 
+% API
+% Personalized 
+% Cancer Therapy
+% https://pct.mdanderson.org
+% Not Available
+ 
+ 
+% PharmGKB
+% https://www.pharmgkb.org/
+% \cite{Hewett2002-yu}
+% Yes
+ 
+% Precision Medicine Knowledge Base
+% (Beta)
+% https://pmkb.weill.cornell.edu/
+% \cite{Huang2016-zx}
+% Yes
+ 
+% TumorPortal
+% http://www.tumorportal.org/
+% \cite{Lawrence2014-ss}
+ 
+\end{tabularx}
+\caption{Tools, software, and databases for functional prediction and annotation of variant impact. }
+\label{table:3}
+\end{table}
+ 
+ 
+
+
+The ultimate goal for many of the above-mentioned resources is to
+develop an individualized approach to the diagnosis, prevention and
+treatment of cancer, or precision oncology. However, despite recent
+advances in HTS, determining the clinical relevance of experimentally
+observed cancer variants remains a challenge in the application of HTS
+in clinical practice. Difficulties in differentiating driver and
+passenger mutations, lack of standards and guidelines in reporting and
+interpretation of genomic variants, lack of clinical evidence in
+associating genomic variants to clinical outcome, lack of resources to
+disseminate clinical knowledge to the cancer community and the precise
+definition of actionability have been reported to contribute to the
+bottleneck
+\cite{Li2017-aw,Prawira2017-gv,Uzilov2016-ct,Hedley_Carr2016-ul}. Comprehensive
+resources linking experimentally determined cancer variants and
+clinical actionability have been developed to address some of these
+challenges and address various aspects of translating research results
+into clinical valuable information to support clinical decisions in
+precision oncology (See Table 3). In recognition of the fact that
+central curation of information regarding actionability is extremely
+challenging, several of the resources below use crowdsourcing as a
+means of gathering updates and enhancing curation efforts. In addition
+to a web interface, some tools provide additional access via API,
+mobile app, and/or social media tagging to facilitate dissemination of
+information and enhance accessibility. While some of these tools share
+similar functions, in the section below, we highlight distinct
+features and capabilities for a representative set of resources.
+
+Clinical Interpretation of Variants in Cancer (CIViC) is an open
+access and open source platform for community-driven curation and
+interpretation of cancer variants. It is based on a crowdsourcing
+model where individuals in the community can contribute to produce a
+centralized knowledge base with the goal of disseminating knowledge
+and encouraging active discussion. Users, including patients, patient
+advocates, clinicians and researchers, can participate, along with
+community editors, in various stages of interpreting the clinical
+significance of cancer variants using standards and guidelines
+developed by community experts \cite{Li2017-aw,Griffith2016-sy}.
+
+The Drug Gene Interaction Database (DGIdb) is an open source and open
+access platform for gene and drug annotation for known interaction and
+potential druggability. Users can can cross-reference genes of
+interest and drugs against up to 15 sources and in functionally
+classified gene categories
+\cite{Wagner2016-fs,Griffith2013-uv}. Cancer Genome Interpreter (CGI)
+identifies mutational events that are biomarkers of drug response or
+interact with known chemical compounds
+\cite{Tamborero2017-ay}. PharmGKB is a pharmacogenomic resource for
+building clinical implementation and interpretation based on
+annotating, integrating and aggregating knowledge extracted from
+research-level publications. It provides scored clinical annotation,
+prescription annotation (drug dosing, prescribing information), as
+well as pharmacokinetics/pharmacodynamics (PK/PD) annotation, with
+primary literature reference.
+
+OncoKb contains information on the clinical implication of specific
+genetic alterations in cancer.  Each variant is annotation from
+multiple sources and scored using Levels of Evidence ranging from
+Level 1, which includes FDA approved biomarker predictive of response
+to an FDA-approved drug, to Level 2, which includes variants for which
+an FDA-approved or standard of care treatment is available, Level 3
+and Level 4 contain variants with investigational and hypothetical
+therapeutic implications, respectively. A similarly structured scoring
+system is available for indicating therapeutic implications for
+variants associated with resistance \cite{Chakravarty2017-gx}. Cancer
+Driver Log (CanDL), an expert-curated database for potential driver
+mutations in cancer, employs a similar four-level scoring system based
+on FDA approval, clinical, pre-clinical and experimental functional
+evidence \cite{Damodaran2015-so}.
+
+MyCancerGenome (MCG) is a knowledge resource highlighting the
+implication of tumor mutation on cancer care. It allows users to
+access its content via a mobile app and provide patient-focused
+information. Patients can access a database entitled DNA-mutation
+Inventory to Refine and Enhance Cancer Treatment (DIRECT) for
+Epidermal Growth Factor Receptor (EGFR) mutation for non-small cell
+lung cancer (NSCLC). Personalized Cancer Therapy (PCT) at the MD
+Anderson Cancer Center is a resource for clinical response associated
+with cancer variants and aims to facilitate patient involvement in
+biomarker-related clinical trials. Drug effectiveness is associated
+with a specific biomarker and scored based on prospective clinical
+study as well as Food and Drug Administration (FDA) approval.
+
+\section{Tools for manipulating variant datasets}
+
+ 
+% vt
+% http://genome.sph.umich.edu/wiki/Vt
+% \cite{Tan2015-dv}
+% bcftools
+% http://www.htslib.org/download/
+% \cite{Li2009-du}
+% ANNOVAR
+% http://annovar.openbioinformatics.org/en/latest/
+% \cite{Wang2010-bt}
+% SnpEff
+% http://snpeff.sourceforge.net/
+% \cite{Cingolani2012-pt}
+% Oncotator
+% https://portals.broadinstitute.org/oncotator/
+% \cite{Ramos2015-vn}
+% vcfanno
+% https://github.com/brentp/vcfanno
+% \cite{Pedersen2016-pu}
+
+
+Processing sequence data with the goal of determining variants
+(somatic or germline) often ends with a file in Variant Call Format
+(VCF format), a loose, self-describing data standard describing
+variants along a genome, associated statistical and numeric metrics
+for each variant, and information integrated from data resources such
+as those described in the preceding sections \cite{Danecek2011-du}. An
+ecosystem of tools, listed in Table 4, has been developed for basic
+transformations, manipulations, merge operations, and for adding
+transcript, protein, and higher-level functional annotations to
+variants in a VCF file. The vt and bcftools software suites perform
+operations such as slicing by genomic coordinate, data compression,
+and, importantly variant normalization, rendering variants more
+readily comparable across resources. Annovar
+\cite{Yang2015-bg,Wang2010-bt} and the SnpEff suite
+\cite{Cingolani2012-pt} add annotations relative to gene annotations,
+including information about transcript and protein-coding
+changes. Recently, several software developers of variant annotation
+tools have developed a standard for reporting gene-centric annotations
+that has simplified post-processing of variants after
+annotation. Finally, tools such as Vcfanno \cite{Pedersen2016-pu} have
+been developed that can flexibly add fields to variants in a VCF file
+based on relatively sophisticated logic and data transformations,
+reducing the number of tools required to bring a new data resource
+into the annotation pipeline.
+
+\section{Pragmatic details}
+
+Despite advanced toolsets for manipulating variant files and
+increasing adoption available standard formats, practical pitfalls and
+challenges remain to the basic manipulation of variant datasets. Some
+data resources are available in multiple formats and not all formats
+contain identical information. Matching variants between resources and
+observed variants can be challenging, as some variants can be
+represented validly in multiple forms. Ideally, variants are cataloged
+with clarity with respect to a reference genome and, whenever
+possible, using HGVS nomenclature \cite{Den_Dunnen2016-gw}. In spite
+of increasing awareness and uptake of HGVS standard nomenclature, the
+critical step of matching variants across tools and databases in
+assessing clinical significance is still hampered by inconsistencies
+across tools and databases \cite{Yen2017-lq}. Particularly when
+handling clinical samples, an information system that provides results
+from multiple resources when assessing novel variants, incorporates in
+silico controls when adding or updating data resources (to avoid
+introducing errors), and adheres to HGVS nomenclature wherever
+possible in data processing pipelines can increase the likelihood of
+discovering potentially relevant variants.
+
+\section{Discussion}
+
+Robust sequencing technologies and increasingly reliable
+bioinformatics pipelines, combined with parallel development of
+therapeutics and diagnostics has bolstered the field of precision
+genomic oncology. However, the sheer number of resources available
+that can inform the interpretation of small variants is staggering,
+except for the very few variants with well-established clinical
+relevance or an associated targeted therapy. This review has
+highlighted a number of important data resources individually. For
+other variants, data integration remains a significant hurdle to the
+rapid turnaround required to apply HTS in a clinical context. Expert
+panel review (the molecular tumor board) has been effective for some
+groups \cite{Knepper2017-no,Beltran2015-pz,Sohal2015-bi} while other
+groups have adopted a protocol-based approach
+\cite{Ghazani2017-oo}. Even when molecularly targetable lesions are
+identified, barriers to delivering therapy have been observed,
+limiting the impact of precision genomic oncology in some settings
+\cite{Bryce2017-ht}.
+
+Cancer arises in an individual after a typically complex and
+incompletely understood set of oncogenic events that are increasingly
+observable at the molecular level. Progress in cancer prevention,
+early detection, diagnosis, prognosis, and treatment is increasingly
+driven by insight gained through the analysis and interpretation of
+large genomic, proteomic, and pharmacological knowledge
+bases. Reductionist approaches to cancer biology can achieve only
+limited success in understanding cancer biology and improving
+therapy. Cancer is a disease associated with disruption of normal
+cellular circuitry and processes that leads to abnormal or
+uncontrolled proliferative growth, characterized by a complex spectrum
+of biochemical alterations that affects biological processes at
+multiple scales from the molecular activity and cellular homeostasis
+to intercellular and inter-tissue signaling. The cancer research
+community has made great strides in measuring the oncogenic events
+that lead to the development of cancer and therapy
+resistance. However, the challenges brought by complexity inherent in
+protein networks, intercellular signaling, cellular heterogeneity, and
+the dynamic nature of cancer demand multiscale systems and modeling
+approaches that address the interrelatedness of the biological
+processes underlying cancer.
+
+\section{Conflict of Interest}
+
+The authors declare that the research was conducted in the absence of
+any commercial or financial relationships that could be construed as a
+potential conflict of interest.
+
+\section{Acknowledgments}
+This work was supported by the National Cancer Institute Center for
+Biomedical Informatics and Information Technology and the National
+Cancer Institute Center for Cancer Research in the Intramural Research
+Program at the National Institutes of Health. Sections of this
+manuscript have been adapted from the PhD thesis
+\cite{Addepalli2014-oa} of D.A.
+
+\printbibliography
+
+\end{document}
