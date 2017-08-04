@@ -1,9 +1,8 @@
 \documentclass{article}
 
-\usepackage[letterpaper,margin=1in]{geometry}
+\usepackage[letterpaper,margin=1.25in]{geometry}
 \usepackage{tabularx}
-\usepackage{longtable}
-\usepackage{ltxtable}
+\usepackage{booktabs}
 \usepackage{fancyhdr}
 \usepackage[textsize=tiny]{todonotes}
 \usepackage{hyperref}
@@ -351,6 +350,18 @@ algorithm focused not on ``deleteriousness'' but, rather, on the
 likelihood that an observed variant is a cancer ``driver''.
 
 
+\subsection{dbNSFP}
+
+Recognizing that applying all of the effect prediction tools available
+is potentially challenging, \cite{Liu2016-iv} developed a database
+that aggregates predictions for \textit{all} possible SNVs associated
+with coding changes (in Gencode gene models). With more than ten
+different prediction algorithms and extensive additional annotation,
+this database can be a useful one-stop-shop for adding annotations to
+variant datasets. The snpEff suite (described below) can be used in
+conjunction with dbNSFP to efficiently annotate SNPs with the
+potential to effect coding genes.
+
 \section{Clinical Actionability}
 
 
@@ -466,7 +477,10 @@ based on relatively sophisticated logic and data transformations,
 reducing the number of tools required to bring a new data resource
 into the annotation pipeline.
 
-\section{Pragmatic details}
+
+\section{Discussion}
+
+\subsection{Pragmatic details}
 
 Despite advanced toolsets for manipulating variant files and
 increasing adoption available standard formats, practical pitfalls and
@@ -488,7 +502,29 @@ introducing errors), and adheres to HGVS nomenclature wherever
 possible in data processing pipelines can increase the likelihood of
 discovering potentially relevant variants.
 
-\section{Discussion}
+This review is meant to be comprehensive, so the reader might wonder
+``Where do we start?''. It is difficult to make hard-and-fast
+recommendations about what resources, tools, and databases are ``the
+best'' given the lack of gold-standard datasets on which to base such
+evalutations. Furthermore, the context for sequencing (clinical or
+not, targeted mutations, trial setting, or novel variant and biomarker
+discovery) will drive annotation pipeline development. Not all data resources need
+to be added simultaneously if developing a pipeline for annotating
+cancer variants for precision oncology applications. In a clinical
+setting, targeting the reporting workflow and working with clinicians
+to understand the most relevant annotations is the most efficient
+approach to determining relevant resources for annotation. In the more
+general sequencing applications, starting with some key resource
+(dbSNP, COSMIC, ClinVar, dbNSFP, for example) and
+extending with additional resources as they become available or as
+time and interest permits is a reasonable approach. Developing a modular
+informatics pipeline, perhaps using a computational workflow framework
+(\url{https://github.com/pditommaso/awesome-pipeline}) that can be easily
+extended and re-run on previously annotated data is helpful to keep
+pace with the rapidly changing and growing collection of annotation
+resources. 
+
+\subsection{Conclusion}
 
 Robust sequencing technologies and increasingly reliable
 bioinformatics pipelines, combined with parallel development of
@@ -550,10 +586,14 @@ Program at the National Institutes of Health.
 \begin{table}[p]
 \centering
 \begin{tabularx}{\textwidth}{p{3.5cm}p{2cm}Xp{3cm}}
-  \hline
-Resource & Variant Type & URL & Citation \\
-  \hline
-  dbSNP & Germline and somatic & \url{https://www.ncbi.nlm.nih.gov/projects/SNP/} & \parencite{Sherry2001-li} \\
+  \toprule
+  Resource & Variant Type & URL & Citation \\
+  \midrule
+  dbSNP & Germline and somatic &
+  \url{https://www.ncbi.nlm.nih.gov/projects/SNP/} &
+  \parencite{Sherry2001-li} \\
+  COSMIC & Somatic & \url{http://cancer.sanger.ac.uk/cosmic} &
+  \parencite{Reva2011-en} \\
   gnomAD  & Germline & \url{http://gnomad.broadinstitute.org/} & \parencite{Lek2016-bb} \\
   69 genomes from CGI & Germline & \url{http://www.completegenomics.com/public-data/69-genomes/} & \parencite{Drmanac2010-od} \\
   Personalized Genome Project & Germline & \url{http://www.personalgenomes.org/} & \parencite{Church2005-lr} \\
@@ -562,9 +602,10 @@ Resource & Variant Type & URL & Citation \\
   cBioPortal & Somatic & \url{http://www.cbioportal.org} & \parencite{Cerami2012-el,Gao2013-li} \\
   Intogen (Partial TCGA dataset) & Somatic & \url{https://www.intogen.org/search} & \parencite{Rubio-Perez2015-ek,Gonzalez-Perez2013-cl} \\
   Pediatric Cancer Genome Project  & Somatic & \url{http://explorepcgp.org} & \parencite{Downing2012-do} \\
-   \hline
+   \bottomrule
 \end{tabularx}
-\caption{catalogs of germline and somatic variants}
+\caption{Catalogs of germline and somatic variants. The most commonly
+  used catalogs include dbSNP, COSMIC, ClinVar, and gnomAD.}
 \label{table:1}
 \end{table}
 
@@ -572,12 +613,12 @@ Resource & Variant Type & URL & Citation \\
 \begin{table}[p]
 \centering
 \begin{tabularx}{1.1\textwidth}{p{2.5cm}Xp{3.5cm}p{3.5cm}}
-  \hline
+  \toprule
 Resource & URL & Citation & Notes \\
-  \hline
+  \midrule
   PolyPhen-2 & \url{http://genetics.bwh.harvard.edu/pph2} & \parencite{Adzhubei2013-nj} & Bayesian classification \\
   SIFT & \url{http://sift.jcvi.org} & \parencite{Ng2003-vp} & Alignment scores \\
-  MutationAssessor & \url{http://mutationassessor.org} & \parencite{Reva2011-en} & evolutionary conservation,  naive Bayes classifier \\
+  MutationAssessor & \url{http://mutationassessor.org} & \parencite{Reva2011-en} & conservation, naive Bayes classifier \\
   MutationTaster & \url{http://www.mutationtaster.org} & \parencite{Schwarz2014-ep} &   \\
   PROVEAN & \url{http://provean.jcvi.org/index.php} & \parencite{Choi2012-tk} &   \\
   CADD & \url{http://cadd.gs.washington.edu} & \parencite{Kircher2014-im} &   \\
@@ -588,19 +629,33 @@ Resource & URL & Citation & Notes \\
   SNAP2 & \url{https://rostlab.org/services/snap2web/} & \parencite{Hecht2015-ti} & Neural Networks \\
   SNPs3D & \url{http://www.snps3d.org/} & \parencite{Yue2006-kj} & Structure and sequence analysis \\
   MutPred2 & \url{http://mutpred.mutdb.org/} & \parencite{Pejaver2017-lr} & Random Forest \\
-  AUTO-MUTE & \url{http://binf2.gmu.edu/automute/} & \parencite{Masso2010-gf} & Topology  and statistical contact potential, and machine-learning techniques \\ 
+  AUTO-MUTE & \url{http://binf2.gmu.edu/automute/} & \parencite{Masso2010-gf} & Topology and statistical contact potential\\ 
   Panther & \url{http://www.pantherdb.org/tools/csnpScoreForm.jsp} & \parencite{Thomas2003-rj} & Hidden Markov Model \\
-  stSNP & \url{http://ilyinlab.org/StSNP/} & \parencite{Uzun2007-bk} & comparative modelling of protein structure \\
-  Integrated Predictive Methods &  &  &   \\
-  Condel & \url{http://bg.upf.edu/fannsdb/} & \parencite{Gonzalez-Perez2011-gc} & a weighted average of the normalized scores from multiple methods \\
+  stSNP & \url{http://ilyinlab.org/StSNP/} & \parencite{Uzun2007-bk} &
+  comparative modelling of protein structure \\
+  \midrule
+  \multicolumn{4}{l}{Integrated predictive methods and aggregated databases}    \\
+  \midrule
+  Condel & \url{http://bg.upf.edu/fannsdb/} & \parencite{Gonzalez-Perez2011-gc} & a weighted average of multiple methods \\
   CoVEC & \url{https://sourceforge.net/projects/covec/files} &   &   \\
-  CAROL & \url{http://www.sanger.ac.uk/science/tools/carol} & \parencite{Lopes2012-je} & combines information from PolyPhen-2 and SIFT \\
-  Cancer Specific Prediction tools &  &  &   \\
-  CHASM & \url{http://wiki.chasmsoftware.org/index.php/Main_Page} & \parencite{Carter2009-ci} & Random Forest, cancer mutations from COSMIC and other cancer-related resources \\
-  CanDrA & \url{http://bioinformatics.mdanderson.org/main/CanDrA\#CanDrA} & \parencite{Mao2013-ie} & 96  structural, evolutionary and gene features  \\
-   \hline
+  CAROL & \url{http://www.sanger.ac.uk/science/tools/carol} &
+  \parencite{Lopes2012-je} & combines PolyPhen-2 and SIFT \\
+  dbNSFP & \url{https://sites.google.com/site/jpopgen/dbNSFP} &
+  \parencite{Liu2016-iv} & Aggregated database of variant information \\
+  \midrule
+  \multicolumn{4}{l}{Cancer-specific prediction tools}    \\
+  \midrule
+  CHASM & \url{http://wiki.chasmsoftware.org/index.php/Main_Page} &
+  \parencite{Carter2009-ci} & Random Forest \\
+  CanDrA & \url{http://bioinformatics.mdanderson.org/main/CanDrA\#CanDrA} & \parencite{Mao2013-ie} & 96 structural, evolutionary and gene features  \\
+   \bottomrule
 \end{tabularx}
-\caption{Tools, software, and databases for functional prediction and annotation of variant impact. }
+\caption{Tools, software, and databases for functional prediction and
+  annotation of variant impact. The most common approaches include
+  SIFT, PolyPhen-2, CADD, and CHASM, though there is little consensus
+  about which are ``best''. One of the most efficient approaches is to
+use an aggregated database like dbNSFP to add many annotations
+simultaneously. }
 \label{table:2}
 \end{table}
 
@@ -626,7 +681,13 @@ Resource & URL & Citation & Notes \\
   \parencite{Lawrence2014-ss} & & \\
   \hline
 \end{tabularx}
-\caption{Tools, software, and databases for functional prediction and annotation of variant impact. }
+\caption{Tools, software, and databases for functional prediction and
+  annotation of variant impact. In a clinical setting, these databases
+are the most relevant, as they are maintained to provide clinically
+actionable and curated content. Evalutation of each database by both
+clinical and informatics team members is probably warranted when
+choosing which and how to include these data in the annotation
+pipeline and, potentially, in clinical reports.}
 \label{table:3}
 \end{table}
  
@@ -647,7 +708,8 @@ Resource & URL & Citation & Notes \\
   \parencite{Pedersen2016-pu} \\
   \hline
 \end{tabularx}
-\caption{Software tools for manipulating and adding annotations to variant datasets. }
+\caption{Software tools for manipulating and adding annotations to
+  variant datasets.} 
 \label{table:4}
 \end{table}
 
