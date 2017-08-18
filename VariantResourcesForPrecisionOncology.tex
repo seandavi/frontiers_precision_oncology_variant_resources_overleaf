@@ -391,7 +391,19 @@ to a web interface, some tools provide additional access via API,
 mobile app, and/or social media tagging to facilitate dissemination of
 information and enhance accessibility. While some of these tools share
 similar functions, in the section below, we highlight distinct
-features and capabilities for a representative set of resources.
+features and capabilities for a representative set of resources that
+might be used as a ``starter'' set for clinical annotation of
+variants.
+
+The myvariant.info database is one of the newest and attempts to
+provide a ``one-stop-shop'' for variants. It is included in this
+section because it has recently incorporated the CIViC and Cancer
+Genome Interpreter databases. In addition, it provides annotations for
+SNVs from multiple other data sources (a growing list, so see the site
+for updates) and aggregates functional annotations for variants
+present in its database, making it a good all-around tool for cancer
+variant annotation. It is available as a performant web API only at
+this time. 
 
 Clinical Interpretation of Variants in Cancer (CIViC) is an open
 access and open source platform for community-driven curation and
@@ -522,7 +534,15 @@ informatics pipeline, perhaps using a computational workflow framework
 (\url{https://github.com/pditommaso/awesome-pipeline}) that can be easily
 extended and re-run on previously annotated data is helpful to keep
 pace with the rapidly changing and growing collection of annotation
-resources. 
+resources. Newer aggregation resources such as myvariant.info offer a
+wholistic solution (annotation, catalog, and clinical actionability),
+but with some risk of ``lossiness'' with respect to the primary
+resources contained within.
+
+Finally, given the rapid pace of new development in this space, we
+have established a crowd-sourced list of cancer variant resources for
+precision medicine available at
+\url{https://github.com/seandavi/awesome-cancer-variant-databases}. 
 
 \subsection{Conclusion}
 
@@ -665,29 +685,40 @@ simultaneously. }
 \centering
 \begin{tabularx}{\textwidth}{p{3cm}XXp{1.5cm}p{1.5cm}}
   \hline
-  Resource & URL & Citation & Crowd-sourcing used & Access \\
+  Resource & URL & Citation & Crowd-sourcing used & Buik Access \\
   \hline
-  Cancer Driver Log & \url{https://candl.osu.edu/} & \parencite{Damodaran2015-so} & Yes & \\
+  myvariant.info & \url{http://myvariant.info/} &
+  \parencite{Xin2016-yc} & Yes & API \\
+  Cancer Driver Log & \url{https://candl.osu.edu/} & \parencite{Damodaran2015-so} & Yes & Download\\
   Cancer Genome Interpreter & \url{https://www.cancergenomeinterpreter.org/home} & \parencite{Tamborero2017-ay} & Yes & API \\
-  CIViC & \url{https://civic.genome.wustl.edu/home} & \parencite{Griffith2016-sy} & Yes & API \\
-  DGIdb & \url{http://dgidb.genome.wustl.edu/} & \parencite{Wagner2016-fs,Griffith2013-uv} & Yes & \\
-  Clinical Knowledge Base & \url{https://www.jax.org/clinical-genomics/clinical-offerings/ckb} & & & \\
-  My Cancer Genome & \url{http://www.mycancergenome.org} & \parencite{Micheel2014-pz} & Yes & API, app \\
-  OncoKb & \url{http://oncokb.org/} & \parencite{Chakravarty2017-gx} & & API \\
-  Personalized Cancer Therapy & \url{https://pct.mdanderson.org} & & \\
-  PharmGKB & \url{https://www.pharmgkb.org/} &  \parencite{Hewett2002-yu} & Yes & \\
+  CIViC & \url{https://civic.genome.wustl.edu/home} &
+  \parencite{Griffith2016-sy} & Yes & API, Download \\
+  DGIdb & \url{http://dgidb.genome.wustl.edu/} &
+  \parencite{Wagner2016-fs,Griffith2013-uv} & Yes & API, Download\\
+  Clinical Knowledge Base &
+  \url{https://www.jax.org/clinical-genomics/clinical-offerings/ckb} &
+  & & \\
+  My Cancer Genome & \url{http://www.mycancergenome.org} & \parencite{Micheel2014-pz} & Yes & API \\
+  OncoKb & \url{http://oncokb.org/} & \parencite{Chakravarty2017-gx} &
+  & (licensed) API \\
+  Personalized Cancer Therapy & \url{https://pct.mdanderson.org} & &
+  Account required \\
+  PharmGKB & \url{https://www.pharmgkb.org/} &
+  \parencite{Hewett2002-yu} & Yes & Download \\
   Precision Medicine Knowledge Base (Beta) & \url{https://pmkb.weill.cornell.edu/} & \parencite{Huang2016-zx} & Yes & \\
   TumorPortal & \url{http://www.tumorportal.org/} &
   \parencite{Lawrence2014-ss} & & \\
   \hline
 \end{tabularx}
-\caption{Tools, software, and databases for functional prediction and
-  annotation of variant impact. In a clinical setting, these databases
+\caption{In a clinical setting, these databases
 are the most relevant, as they are maintained to provide clinically
 actionable and curated content. Evalutation of each database by both
-clinical and informatics team members is probably warranted when
+clinical and informatics team members is warranted when
 choosing which and how to include these data in the annotation
-pipeline and, potentially, in clinical reports.}
+pipeline and, potentially, in clinical reports. All databases have
+web-based portals. The last column in the table notes bulk access
+approaches as these are relevant when including databases in an
+annotation pipeline or automated report.}
 \label{table:3}
 \end{table}
  
