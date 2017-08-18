@@ -483,7 +483,12 @@ readily comparable across resources. Annovar
 \parencite{Yang2015-bg,Wang2010-bt} and the SnpEff suite
 \parencite{Cingolani2012-pt} add annotations relative to gene annotations,
 including information about transcript and protein-coding
-changes. Recently, several software developers of variant annotation
+changes. The Ensembl Variant Effect Predictor (VEP) utilizes Ensembl
+gene models to annotate variants in gene context and offers an
+interesting plugin architecture that supports adding variant
+information from resources in table \ref{2}
+\parencite{McLaren2016-br}. Recently, several software developers of
+variant annotation 
 tools have developed a standard for reporting gene-centric annotations
 that has simplified post-processing of variants after
 annotation. Finally, tools such as Vcfanno \parencite{Pedersen2016-pu} have
@@ -517,22 +522,22 @@ introducing errors), and adheres to HGVS nomenclature wherever
 possible in data processing pipelines can increase the likelihood of
 discovering potentially relevant variants.
 
+\subsection{Where to start?}
+
 This review is meant to be comprehensive, so the reader might wonder
-``Where do we start?''. It is difficult to make hard-and-fast
+``Where do we start?''. While it is difficult to make hard-and-fast
 recommendations about what resources, tools, and databases are ``the
 best'' given the lack of gold-standard datasets on which to base such
-evalutations. Furthermore, the context for sequencing (clinical or
+evalutations, annotations in tables \ref{table:1}, \ref{table:2}, and
+\ref{table:3} are meant to provide context for prioritization.
+The context for sequencing (clinical or
 not, targeted mutations, trial setting, or novel variant and biomarker
-discovery) will drive annotation pipeline development. Not all data resources need
+discovery) will also drive annotation pipeline development. Not all data resources need
 to be added simultaneously if developing a pipeline for annotating
 cancer variants for precision oncology applications. In a clinical
 setting, targeting the reporting workflow and working with clinicians
 to understand the most relevant annotations is the most efficient
-approach to determining relevant resources for annotation. In the more
-general sequencing applications, starting with some key resource
-(dbSNP, COSMIC, ClinVar, dbNSFP, for example) and
-extending with additional resources as they become available or as
-time and interest permits is a reasonable approach. Developing a modular
+approach to determining relevant resources for annotation. Developing a modular
 informatics pipeline, perhaps using a computational workflow framework
 (\url{https://github.com/pditommaso/awesome-pipeline}) that can be easily
 extended and re-run on previously annotated data is helpful to keep
@@ -540,7 +545,7 @@ pace with the rapidly changing and growing collection of annotation
 resources. Newer aggregation resources such as myvariant.info offer a
 wholistic solution (annotation, catalog, and clinical actionability),
 but with some risk of ``lossiness'' with respect to the primary
-resources contained within.
+resources contained within. 
 
 Finally, given the rapid pace of new development in this space, we
 have established a crowd-sourced list of cancer variant resources for
