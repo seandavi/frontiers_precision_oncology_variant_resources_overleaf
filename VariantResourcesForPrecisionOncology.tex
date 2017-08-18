@@ -2,6 +2,7 @@
 
 \usepackage[letterpaper,margin=1.25in]{geometry}
 \usepackage{tabularx}
+\usepackage{array}
 \usepackage{booktabs}
 \usepackage{fancyhdr}
 \usepackage[textsize=tiny]{todonotes}
@@ -11,6 +12,8 @@ sorting=none,
 citestyle=authoryear,
 backend=biber]{biblatex}
 \usepackage{authblk}
+\usepackage{tablefootnote}
+
 
 \title{Resources for Interpreting Variants in Precision Genomic
 Oncology Applications}
@@ -626,47 +629,64 @@ Program at the National Institutes of Health.
 
 \printbibliography
 
+\pagebreak
 
-\begin{table}[p]
+\begin{table}
+  \footnotesize
 \centering
-\begin{tabularx}{\textwidth}{p{3.5cm}p{2cm}Xp{3cm}}
+\begin{tabular}{>{\raggedright}p{1.25in}p{1.25in}p{1.5in}p{1.25in}<{\raggedright}}
   \toprule
   Resource & Variant Type & URL & Citation \\
   \midrule
-  dbSNP & Germline and somatic &
+  dbSNP\textsuperscript{1} & Germline and somatic &
   \url{https://www.ncbi.nlm.nih.gov/projects/SNP/} &
   \parencite{Sherry2001-li} \\
-  COSMIC & Somatic & \url{http://cancer.sanger.ac.uk/cosmic} &
+  COSMIC\textsuperscript{1} & Somatic & \url{http://cancer.sanger.ac.uk/cosmic} &
   \parencite{Reva2011-en} \\
-  gnomAD  & Germline & \url{http://gnomad.broadinstitute.org/} & \parencite{Lek2016-bb} \\
-  69 genomes from CGI & Germline & \url{http://www.completegenomics.com/public-data/69-genomes/} & \parencite{Drmanac2010-od} \\
+  ClinVar\textsuperscript{1} & Germline predisposition and somatic & \url{https://www.ncbi.nlm.nih.gov/clinvar/intro/} & \parencite{Landrum2016-ul} \\
+  gnomAD\textsuperscript{2}  & Germline & \url{http://gnomad.broadinstitute.org/} & \parencite{Lek2016-bb} \\
+  69 genomes from CGI\textsuperscript{3} & Germline & \url{http://www.completegenomics.com/public-data/69-genomes/} & \parencite{Drmanac2010-od} \\
   Personalized Genome Project & Germline & \url{http://www.personalgenomes.org/} & \parencite{Church2005-lr} \\
-  ClinVar & Germline predisposition and somatic & \url{https://www.ncbi.nlm.nih.gov/clinvar/intro/} & \parencite{Landrum2016-ul} \\
   NCI Genomic Data Commons & Germline and somatic & \url{https://portal.gdc.cancer.gov/} & \parencite{Grossman2016-sk} \\
   cBioPortal & Somatic & \url{http://www.cbioportal.org} & \parencite{Cerami2012-el,Gao2013-li} \\
   Intogen (Partial TCGA dataset) & Somatic & \url{https://www.intogen.org/search} & \parencite{Rubio-Perez2015-ek,Gonzalez-Perez2013-cl} \\
   Pediatric Cancer Genome Project  & Somatic & \url{http://explorepcgp.org} & \parencite{Downing2012-do} \\
-   \bottomrule
-\end{tabularx}
+  \bottomrule
+\end{tabular}
 \caption{Catalogs of germline and somatic variants. The most commonly
-  used catalogs include dbSNP, COSMIC, ClinVar, and gnomAD.}
+  used catalogs include dbSNP, COSMIC, ClinVar, and
+  gnomAD. \textsuperscript{1}Primary
+  resources useful for all studies. \textsuperscript{2}Particularly useful for
+  exome sequencing projects. \textsuperscript{3}Useful if
+  the Complete Genomics platform was used.} 
 \label{table:1}
 \end{table}
 
 
 \begin{table}[p]
+  \footnotesize
 \centering
-\begin{tabularx}{1.1\textwidth}{p{2.5cm}Xp{3.5cm}p{3.5cm}}
+\begin{tabularx}{1\textwidth}{p{2.5cm}Xp{3.5cm}p{3.5cm}}
   \toprule
 Resource & URL & Citation & Notes \\
   \midrule
-  PolyPhen-2 & \url{http://genetics.bwh.harvard.edu/pph2} & \parencite{Adzhubei2013-nj} & Bayesian classification \\
-  SIFT & \url{http://sift.jcvi.org} & \parencite{Ng2003-vp} & Alignment scores \\
+  \multicolumn{4}{l}{Integrated predictive methods and aggregated databases}    \\
+  \midrule
+  dbNSFP\textsuperscript{1,2,3,4} & \url{https://sites.google.com/site/jpopgen/dbNSFP} &
+  \parencite{Liu2016-iv} & Aggregated database of variant information
+  \\
+  myvariant.info\textsuperscript{1} & \url{http://myvariant.info/} &
+  \parencite{Xin2016-yc} & Aggregated database of variant information \\
+  \midrule
+  \multicolumn{4}{l}{Functional effect prediction software and algorithms}    \\
+  \midrule
+  PolyPhen-2\textsuperscript{2} & \url{http://genetics.bwh.harvard.edu/pph2} & \parencite{Adzhubei2013-nj} & Bayesian classification \\
+  SIFT\textsuperscript{2} & \url{http://sift.jcvi.org} & \parencite{Ng2003-vp} & Alignment scores \\
   MutationAssessor & \url{http://mutationassessor.org} & \parencite{Reva2011-en} & conservation, naive Bayes classifier \\
   MutationTaster & \url{http://www.mutationtaster.org} & \parencite{Schwarz2014-ep} &   \\
   PROVEAN & \url{http://provean.jcvi.org/index.php} & \parencite{Choi2012-tk} &   \\
-  CADD & \url{http://cadd.gs.washington.edu} & \parencite{Kircher2014-im} &   \\
-  GERP++ & \url{http://mendel.stanford.edu/SidowLab/downloads/gerp/index.html} & \parencite{Davydov2010-ui} &   \\
+  CADD\textsuperscript{2,3} & \url{http://cadd.gs.washington.edu} & \parencite{Kircher2014-im} &   \\
+  GERP++\textsuperscript{3} & \url{http://mendel.stanford.edu/SidowLab/downloads/gerp/index.html} & \parencite{Davydov2010-ui} &   \\
   PhyloP and PhastCons & \url{http://compgen.cshl.edu/phast/index.php} & \parencite{Siepel2005-ke,Pollard2010-of} &   \\
   nsSNPAnalyzer & \url{http://snpanalyzer.uthsc.edu/} & \parencite{Bao2005-jn} & Random Forest \\
   SNPs\&GO & \url{http://snps-and-go.biocomp.unibo.it/snps-and-go/} & \parencite{Calabrese2009-mi} & SVM \\
@@ -677,15 +697,10 @@ Resource & URL & Citation & Notes \\
   Panther & \url{http://www.pantherdb.org/tools/csnpScoreForm.jsp} & \parencite{Thomas2003-rj} & Hidden Markov Model \\
   stSNP & \url{http://ilyinlab.org/StSNP/} & \parencite{Uzun2007-bk} &
   comparative modelling of protein structure \\
-  \midrule
-  \multicolumn{4}{l}{Integrated predictive methods and aggregated databases}    \\
-  \midrule
-  Condel & \url{http://bg.upf.edu/fannsdb/} & \parencite{Gonzalez-Perez2011-gc} & a weighted average of multiple methods \\
+  Condel\textsuperscript{2} & \url{http://bg.upf.edu/fannsdb/} & \parencite{Gonzalez-Perez2011-gc} & a weighted average of multiple methods \\
   CoVEC & \url{https://sourceforge.net/projects/covec/files} &   &   \\
-  CAROL & \url{http://www.sanger.ac.uk/science/tools/carol} &
+  CAROL\textsuperscript{2} & \url{http://www.sanger.ac.uk/science/tools/carol} &
   \parencite{Lopes2012-je} & combines PolyPhen-2 and SIFT \\
-  dbNSFP & \url{https://sites.google.com/site/jpopgen/dbNSFP} &
-  \parencite{Liu2016-iv} & Aggregated database of variant information \\
   \midrule
   \multicolumn{4}{l}{Cancer-specific prediction tools}    \\
   \midrule
@@ -695,67 +710,72 @@ Resource & URL & Citation & Notes \\
    \bottomrule
 \end{tabularx}
 \caption{Tools, software, and databases for functional prediction and
-  annotation of variant impact. The most common approaches include
-  SIFT, PolyPhen-2, CADD, and CHASM, though there is little consensus
-  about which are ``best''. One of the most efficient approaches is to
-use an aggregated database like dbNSFP to add many annotations
-simultaneously. }
+  annotation of variant impact. \textsuperscript{1}Aggregated
+  databases combine outputs of other databases and algorithms are,
+  therefore, efficient resources to use in annotation
+  pipelines. Adding these resources to observed variants is
+  supported software in table \ref{table:4} including Ensembl VEP software (noted\textsuperscript{2} in
+  this table), Annovar (noted\textsuperscript{3}), and snpEff
+  (noted\textsuperscript{4}).
+}
 \label{table:2}
 \end{table}
 
 
 
 \begin{table}[p]
+  \footnotesize
 \centering
 \begin{tabularx}{\textwidth}{p{3cm}XXp{1.5cm}p{1.5cm}}
   \hline
   Resource & URL & Citation & Crowd-sourcing used & Buik Access \\
   \hline
-  myvariant.info & \url{http://myvariant.info/} &
+  myvariant.info\textsuperscript{*} & \url{http://myvariant.info/} &
   \parencite{Xin2016-yc} & Yes & API \\
-  Cancer Driver Log & \url{https://candl.osu.edu/} & \parencite{Damodaran2015-so} & Yes & Download\\
-  Cancer Genome Interpreter & \url{https://www.cancergenomeinterpreter.org/home} & \parencite{Tamborero2017-ay} & Yes & API \\
-  CIViC & \url{https://civic.genome.wustl.edu/home} &
+  CIViC\textsuperscript{*} & \url{https://civic.genome.wustl.edu/home} &
   \parencite{Griffith2016-sy} & Yes & API, Download \\
-  DGIdb & \url{http://dgidb.genome.wustl.edu/} &
+  DGIdb\textsuperscript{*} & \url{http://dgidb.genome.wustl.edu/} &
   \parencite{Wagner2016-fs,Griffith2013-uv} & Yes & API, Download\\
+  Cancer Genome Interpreter\textsuperscript{*} & \url{https://www.cancergenomeinterpreter.org/home} & \parencite{Tamborero2017-ay} & Yes & API \\
+  OncoKb\textsuperscript{*} & \url{http://oncokb.org/} & \parencite{Chakravarty2017-gx} &
+  & API \\
+  Cancer Driver Log & \url{https://candl.osu.edu/} & \parencite{Damodaran2015-so} & Yes & Download\\
   Clinical Knowledge Base &
   \url{https://www.jax.org/clinical-genomics/clinical-offerings/ckb} &
   & & \\
-  My Cancer Genome & \url{http://www.mycancergenome.org} & \parencite{Micheel2014-pz} & Yes & API \\
-  OncoKb & \url{http://oncokb.org/} & \parencite{Chakravarty2017-gx} &
-  & (licensed) API \\
+  My Cancer Genome & \url{http://www.mycancergenome.org} &
+  \parencite{Micheel2014-pz} & Yes & (licensed) API \\
   Personalized Cancer Therapy & \url{https://pct.mdanderson.org} & &
   Account required \\
   PharmGKB & \url{https://www.pharmgkb.org/} &
   \parencite{Hewett2002-yu} & Yes & Download \\
   Precision Medicine Knowledge Base (Beta) & \url{https://pmkb.weill.cornell.edu/} & \parencite{Huang2016-zx} & Yes & \\
-  TumorPortal & \url{http://www.tumorportal.org/} &
-  \parencite{Lawrence2014-ss} & & \\
   \hline
 \end{tabularx}
 \caption{In a clinical setting, these databases
 are the most relevant, as they are maintained to provide clinically
-actionable and curated content. Evalutation of each database by both
-clinical and informatics team members is warranted when
-choosing which and how to include these data in the annotation
-pipeline and, potentially, in clinical reports. All databases have
-web-based portals. The last column in the table notes bulk access
+actionable and curated content. While evalutation of each database by both
+clinical and informatics team members, databases marked with ``*'' are
+maintained, recently (or continuously) updated, and curated. The
+myvariant.info database includes both CiVIC and Cancer Genome
+Interpreter data. The last column in the table notes bulk access
 approaches as these are relevant when including databases in an
-annotation pipeline or automated report.}
+annotation pipeline or automated report. }
 \label{table:3}
 \end{table}
  
  
 \begin{table}[p]
+  \footnotesize
 \centering
-\begin{tabularx}{\textwidth}{p{3cm}XXp{1.5cm}p{1.5cm}}
+\begin{tabularx}{\textwidth}{p{2.5cm}XXp{1.5cm}p{1.5cm}}
   \hline
   Software & URL & Citation \\
   \hline
   vt & \url{http://genome.sph.umich.edu/wiki/Vt} & \parencite{Tan2015-dv} \\
   bcftools & \url{http://www.htslib.org/download/} & \parencite{Li2009-du} \\
   ANNOVAR & \url{http://annovar.openbioinformatics.org/en/latest/} & \parencite{Wang2010-bt} \\
+  Ensembl Variant Effect Predictor (VEP) & \url{http://www.ensembl.org/vep} & \parencite{McLaren2016-br} \\
   SnpEff & \url{http://snpeff.sourceforge.net/} & \parencite{Cingolani2012-pt} \\
   Oncotator & \url{https://portals.broadinstitute.org/oncotator/} &
   \parencite{Ramos2015-vn} \\
@@ -764,7 +784,10 @@ annotation pipeline or automated report.}
   \hline
 \end{tabularx}
 \caption{Software tools for manipulating and adding annotations to
-  variant datasets.} 
+  variant datasets. Variant calling produces a list of observed variants. The
+  tools in this table are useful for adding biological interpretation
+  and for annotating the variants with information from resources in
+  tables \ref{table:1}, \ref{table:2}, and \ref{table:3}.} 
 \label{table:4}
 \end{table}
 
